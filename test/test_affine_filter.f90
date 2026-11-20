@@ -3,9 +3,9 @@ module affine_filter_tests
     use, intrinsic :: ieee_arithmetic, only: ieee_value, ieee_quiet_nan
     use testdrive, only: new_unittest, unittest_type, error_type, check
     use fortnum_status, only: fortnum_status_t, status_ok
-    use fortprob_affine_filter, only: gaussian_interval_t, affine_gaussian_filter_t
-    use fortprob_gaussian, only: gaussian_condition, gaussian_logpdf
-    use fortprob_regression, only: bayesian_linear_fit_diagonal
+    use fortinfer_affine_filter, only: gaussian_interval_t, affine_gaussian_filter_t
+    use fortinfer_gaussian, only: gaussian_condition, gaussian_logpdf
+    use fortinfer_regression, only: bayesian_linear_fit_diagonal
     implicit none
 contains
     subroutine collect(tests)

@@ -1,4 +1,4 @@
-module fortprob_mixture
+module fortinfer_mixture
     use, intrinsic :: iso_fortran_env, only: dp => real64
     use, intrinsic :: ieee_arithmetic, only: ieee_is_finite, ieee_value, ieee_quiet_nan
     use fortnum_status, only: fortnum_status_t, status_set, FORTNUM_OK, &
@@ -35,4 +35,4 @@ contains
         value = mean
         call status_set(status, FORTNUM_OK, '')
     end subroutine
-end module fortprob_mixture
+end module fortinfer_mixture

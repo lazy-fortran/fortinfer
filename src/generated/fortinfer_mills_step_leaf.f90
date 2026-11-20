@@ -3,7 +3,7 @@
 ! Generator revision: fortsym b9ea95c5a0475b016b1e149875a9bec9d8562533
 ! Regenerate with: gen/regenerate.sh
 
-pure subroutine fortprob_mills_step_leaf(a, denominator, derivative, k, &
+pure subroutine fortinfer_mills_step_leaf(a, denominator, derivative, k, &
     next_denominator, next_derivative)
     use, intrinsic :: iso_fortran_env, only: real64
     implicit none
@@ -19,5 +19,5 @@ pure subroutine fortprob_mills_step_leaf(a, denominator, derivative, k, &
         1.0000000000000000E+000_real64)
     next_denominator = t7
     next_derivative = t14
-end subroutine fortprob_mills_step_leaf
+end subroutine fortinfer_mills_step_leaf
 

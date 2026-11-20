@@ -23,7 +23,7 @@ program generate
         diff(variance**0.5_dp, variance)]
     call lower_kernel_ir(root, ir, good, message)
     if (.not. good) error stop message
-    spec%name = str('fortprob_interval_leaf')
+    spec%name = str('fortinfer_interval_leaf')
     spec%args = words('mean variance z')
     spec%outputs = words('lower upper dsigma_dvariance')
     spec%pure_procedure = .true.
@@ -32,7 +32,7 @@ program generate
     spec%regenerate_command = str('gen/regenerate.sh')
     source = emit_fortran_kernel_ir(ir, spec, good, message)
     if (.not. good) error stop message
-    open (newunit=unit, file='src/generated/fortprob_interval_leaf.f90', &
+    open (newunit=unit, file='src/generated/fortinfer_interval_leaf.f90', &
         status='replace')
     write (unit, '(a)') chars(source)
     close (unit)
@@ -42,12 +42,12 @@ program generate
     density = [-0.5_dp*(n*log(2.0_dp*acos(-1.0_dp)) + logdet + quadratic)]
     call lower_kernel_ir(density, ir, good, message)
     if (.not. good) error stop message
-    spec%name = str('fortprob_logpdf_leaf')
+    spec%name = str('fortinfer_logpdf_leaf')
     spec%args = words('n logdet quadratic')
     spec%outputs = [str('density')]
     source = emit_fortran_kernel_ir(ir, spec, good, message)
     if (.not. good) error stop message
-    open (newunit=unit, file='src/generated/fortprob_logpdf_leaf.f90', &
+    open (newunit=unit, file='src/generated/fortinfer_logpdf_leaf.f90', &
         status='replace')
     write (unit, '(a)') chars(source)
     close (unit)
@@ -57,12 +57,12 @@ program generate
     call lower_kernel_ir(density, ir, good, message)
     if (.not. good) error stop message
     spec%policy%shape_fma = .false.
-    spec%name = str('fortprob_laplace_leaf')
+    spec%name = str('fortinfer_laplace_leaf')
     spec%args = words('n log_joint_mode logdet')
     spec%outputs = [str('log_evidence')]
     source = emit_fortran_kernel_ir(ir, spec, good, message)
     if (.not. good) error stop message
-    open (newunit=unit, file='src/generated/fortprob_laplace_leaf.f90', &
+    open (newunit=unit, file='src/generated/fortinfer_laplace_leaf.f90', &
         status='replace')
     leaf_source = chars(source)
     do while (len(leaf_source) > 0)
@@ -77,24 +77,24 @@ program generate
     empirical = [(1.0_dp + count_ge)/(n + 1.0_dp)]
     call lower_kernel_ir(empirical, ir, good, message)
     if (.not. good) error stop message
-    spec%name = str('fortprob_empirical_tail_leaf')
+    spec%name = str('fortinfer_empirical_tail_leaf')
     spec%args = words('n count_ge')
     spec%outputs = [str('probability')]
     source = emit_fortran_kernel_ir(ir, spec, good, message)
     if (.not. good) error stop message
-    open (newunit=unit, file='src/generated/fortprob_empirical_tail_leaf.f90', &
+    open (newunit=unit, file='src/generated/fortinfer_empirical_tail_leaf.f90', &
         status='replace')
     write (unit, '(a)') chars(source)
     close (unit)
     empirical = [(n + 1.0_dp)*(1.0_dp - alpha)]
     call lower_kernel_ir(empirical, ir, good, message)
     if (.not. good) error stop message
-    spec%name = str('fortprob_empirical_rank_leaf')
+    spec%name = str('fortinfer_empirical_rank_leaf')
     spec%args = words('n alpha')
     spec%outputs = [str('location')]
     source = emit_fortran_kernel_ir(ir, spec, good, message)
     if (.not. good) error stop message
-    open (newunit=unit, file='src/generated/fortprob_empirical_rank_leaf.f90', &
+    open (newunit=unit, file='src/generated/fortinfer_empirical_rank_leaf.f90', &
         status='replace')
     write (unit, '(a)') chars(source)
     close (unit)
@@ -105,12 +105,12 @@ program generate
     leaves = [a + k/denominator, 1.0_dp - k*derivative/denominator**2]
     call lower_kernel_ir(leaves, ir, good, message)
     if (.not. good) error stop message
-    spec%name = str('fortprob_mills_step_leaf')
+    spec%name = str('fortinfer_mills_step_leaf')
     spec%args = words('a denominator derivative k')
     spec%outputs = words('next_denominator next_derivative')
     source = emit_fortran_kernel_ir(ir, spec, good, message)
     if (.not. good) error stop message
-    open (newunit=unit, file='src/generated/fortprob_mills_step_leaf.f90', &
+    open (newunit=unit, file='src/generated/fortinfer_mills_step_leaf.f90', &
         status='replace')
     write (unit, '(a)') chars(source)
     close (unit)
@@ -118,12 +118,12 @@ program generate
     leaves = [ratio, 1.0_dp + a*ratio - ratio**2]
     call lower_kernel_ir(leaves, ir, good, message)
     if (.not. good) error stop message
-    spec%name = str('fortprob_truncated_leaf')
+    spec%name = str('fortinfer_truncated_leaf')
     spec%args = words('a ratio')
     spec%outputs = words('shift variance_factor')
     source = emit_fortran_kernel_ir(ir, spec, good, message)
     if (.not. good) error stop message
-    open (newunit=unit, file='src/generated/fortprob_truncated_leaf.f90', &
+    open (newunit=unit, file='src/generated/fortinfer_truncated_leaf.f90', &
         status='replace')
     write (unit, '(a)') chars(source)
     close (unit)

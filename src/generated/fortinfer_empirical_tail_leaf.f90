@@ -3,7 +3,7 @@
 ! Generator revision: fortsym b9ea95c5a0475b016b1e149875a9bec9d8562533
 ! Regenerate with: gen/regenerate.sh
 
-pure subroutine fortprob_empirical_tail_leaf(n, count_ge, probability)
+pure subroutine fortinfer_empirical_tail_leaf(n, count_ge, probability)
     use, intrinsic :: iso_fortran_env, only: real64
     implicit none
     real(real64), intent(in) :: n, count_ge
@@ -15,5 +15,5 @@ pure subroutine fortprob_empirical_tail_leaf(n, count_ge, probability)
     t7 = (count_ge + 1.0000000000000000E+000_real64)
     t8 = (t5 * t7)
     probability = t8
-end subroutine fortprob_empirical_tail_leaf
+end subroutine fortinfer_empirical_tail_leaf
 

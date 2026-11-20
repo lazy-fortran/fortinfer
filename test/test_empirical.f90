@@ -4,7 +4,7 @@ module empirical_tests
         ieee_positive_inf, ieee_negative_inf, ieee_is_nan, ieee_is_finite
     use testdrive, only: new_unittest, unittest_type, error_type, check
     use fortnum_status, only: fortnum_status_t, status_ok
-    use fortprob_empirical, only: empirical_calibration_t
+    use fortinfer_empirical, only: empirical_calibration_t
     implicit none
 contains
     subroutine collect(tests)

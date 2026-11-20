@@ -1,4 +1,4 @@
-module fortprob_affine_filter
+module fortinfer_affine_filter
     use, intrinsic :: iso_fortran_env, only: dp => real64
     use, intrinsic :: ieee_arithmetic, only: ieee_is_finite
     use fortnum_status, only: fortnum_status_t, status_ok, status_set, &
@@ -185,4 +185,4 @@ contains
         call move_alloc(candidate, self%root)
         call status_set(status, FORTNUM_OK, '')
     end subroutine
-end module fortprob_affine_filter
+end module fortinfer_affine_filter

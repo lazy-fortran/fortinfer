@@ -3,7 +3,7 @@
 ! Generator revision: fortsym b9ea95c5a0475b016b1e149875a9bec9d8562533
 ! Regenerate with: gen/regenerate.sh
 
-pure subroutine fortprob_logpdf_leaf(n, logdet, quadratic, density)
+pure subroutine fortinfer_logpdf_leaf(n, logdet, quadratic, density)
     use, intrinsic :: iso_fortran_env, only: real64
     implicit none
     real(real64), intent(in) :: n, logdet, quadratic
@@ -13,5 +13,5 @@ pure subroutine fortprob_logpdf_leaf(n, logdet, quadratic, density)
     t6 = (logdet + quadratic + (n * 1.8378770664093453E+000_real64))
     t9 = (t6 * (-1.0000000000000000E+000_real64) * 5.0000000000000000E-001_real64)
     density = t9
-end subroutine fortprob_logpdf_leaf
+end subroutine fortinfer_logpdf_leaf
 

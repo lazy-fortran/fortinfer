@@ -3,7 +3,7 @@
 ! Generator revision: fortsym b9ea95c5a0475b016b1e149875a9bec9d8562533
 ! Regenerate with: gen/regenerate.sh
 
-pure subroutine fortprob_laplace_leaf(n, log_joint_mode, logdet, log_evidence)
+pure subroutine fortinfer_laplace_leaf(n, log_joint_mode, logdet, log_evidence)
     use, intrinsic :: iso_fortran_env, only: real64
     implicit none
     real(real64), intent(in) :: n, log_joint_mode, logdet
@@ -14,4 +14,4 @@ pure subroutine fortprob_laplace_leaf(n, log_joint_mode, logdet, log_evidence)
     t8 = (n * 5.0000000000000000E-001_real64 * 1.8378770664093453E+000_real64)
     t9 = (log_joint_mode + t5 + t8)
     log_evidence = t9
-end subroutine fortprob_laplace_leaf
+end subroutine fortinfer_laplace_leaf

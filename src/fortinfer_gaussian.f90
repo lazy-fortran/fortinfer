@@ -1,4 +1,4 @@
-module fortprob_gaussian
+module fortinfer_gaussian
     use, intrinsic :: iso_fortran_env, only: dp => real64
     use, intrinsic :: ieee_arithmetic, only: ieee_is_finite
     use fortnum_status, only: fortnum_status_t, status_ok, status_set, &
@@ -19,12 +19,12 @@ module fortprob_gaussian
         procedure :: condition => conditioner_condition
     end type gaussian_conditioner_t
     interface
-        pure subroutine fortprob_interval_leaf(mean, variance, z, lower, upper, ds)
+        pure subroutine fortinfer_interval_leaf(mean, variance, z, lower, upper, ds)
             import dp
             real(dp), intent(in) :: mean, variance, z
             real(dp), intent(out) :: lower, upper, ds
         end subroutine
-        pure subroutine fortprob_logpdf_leaf(n, logdet, quadratic, density)
+        pure subroutine fortinfer_logpdf_leaf(n, logdet, quadratic, density)
             import dp
             real(dp), intent(in) :: n, logdet, quadratic
             real(dp), intent(out) :: density
@@ -236,7 +236,7 @@ contains
         if (.not. status_ok(status)) return
         call factor%log_determinant(logdet, status)
         if (.not. status_ok(status)) return
-        call fortprob_logpdf_leaf(real(size(mean), dp), logdet, &
+        call fortinfer_logpdf_leaf(real(size(mean), dp), logdet, &
             dot_product(residual, solved), log_density)
         if (.not. ieee_is_finite(log_density)) &
             call status_set(status, FORTNUM_DOMAIN_ERROR, 'Gaussian density overflow')
@@ -282,7 +282,7 @@ contains
             if (variance(i) == 0.0_dp) then
                 lower(i) = mean(i); upper(i) = mean(i)
             else
-                call fortprob_interval_leaf(mean(i), variance(i), z, &
+                call fortinfer_interval_leaf(mean(i), variance(i), z, &
                     lower(i), upper(i), unused)
             end if
         end do
@@ -294,4 +294,4 @@ contains
         end if
         call status_set(status, FORTNUM_OK, '')
     end subroutine
-end module fortprob_gaussian
+end module fortinfer_gaussian

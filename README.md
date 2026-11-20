@@ -1,6 +1,6 @@
-# fortprob
+# fortinfer
 
-Initial implementation of [fortprob](https://github.com/lazy-fortran/fortprob),
+Initial implementation of [fortinfer](https://github.com/lazy-fortran/fortinfer),
 providing dense Gaussian
 conditioning and Bayesian linear regression with a proper Gaussian coefficient
 prior. Models can use polynomial, spline, or other caller-supplied design
@@ -12,7 +12,7 @@ solves and symmetric eigenvalue checks come from
 There is no symbolic engine dependency at runtime.
 
 ```fortran
-use fortprob_regression, only: bayesian_linear_fit, bayesian_linear_predict
+use fortinfer_regression, only: bayesian_linear_fit, bayesian_linear_predict
 use fortnum_status, only: fortnum_status_t, status_ok
 ! design(n_observations,n_coefficients), noise_cov(n_observations,n_observations)
 call bayesian_linear_fit(design, y, noise_cov, prior_mean, prior_cov, &
@@ -46,7 +46,7 @@ explicit `noise_cov`; the result adds that future noise to `latent_cov`. Outputs
 Gaussian operations leave array outputs unallocated; inspect `status%code` and
 `status%msg` before accessing them.
 
-`fortprob_gaussian` exports:
+`fortinfer_gaussian` exports:
 
 - `gaussian_condition(mean_x,cov_xx,mean_y,cov_yy,cov_xy,y,post_mean,post_cov,status)`.
   The cross-covariance has shape `(size(mean_x),size(mean_y))`. `cov_yy` must
@@ -75,7 +75,7 @@ Gaussian operations leave array outputs unallocated; inspect `status%code` and
   finite values, symmetry and definiteness. Its optional logical flag defaults
   to false. The optional nonnegative reference scale is for subtraction error.
 
-`fortprob_truncated` exports
+`fortinfer_truncated` exports
 `normal_lower_truncated_moments(mu,variance,lower,mean,truncated_variance,log_mass,status)`.
 It returns the exact scalar Gaussian conditional moments for `X >= lower`, and
 `log_mass = log(P(X >= lower))`, with real64 scalar arguments and
@@ -86,7 +86,7 @@ domain error, NaN moments and negative infinite log mass. Nonfinite inputs,
 negative variance or unrepresentable standardized bounds/results return a domain
 error. Check status before using outputs.
 
-`fortprob_laplace` exports
+`fortinfer_laplace` exports
 `laplace_at_mode(log_joint_mode,hessian,covariance,log_evidence,status)`.
 All numeric inputs and outputs use real64; `covariance` is allocatable and
 `status` is `fortnum_status_t`. The caller supplies a stationary interior mode,
@@ -110,7 +110,7 @@ adaptively integrated evidence by about 19.25%. Exact Gaussian and independently
 marginalized linear-regression tests also check normalization under parameter
 rescaling.
 
-`fortprob_affine_filter` provides conditional Gaussian filtering when the state
+`fortinfer_affine_filter` provides conditional Gaussian filtering when the state
 mean depends affinely on unknown regression coefficients. Use
 `gaussian_interval_t%init(F,A,Qend,qavg,qcross,measurement_variance,status)` to
 configure a transition. Here `F` is the state-transition matrix, `A` the
@@ -162,7 +162,7 @@ are unchanged, so roundoff can leave a tiny negative variance, which the
 interval helper rejects. Singular observation systems return an error;
 rank-aware conditioning is not implemented.
 
-`fortprob_mixture` provides the pure routine
+`fortinfer_mixture` provides the pure routine
 `probability_mean(probabilities,weights,value,status)` for a normalized weighted
 average of probabilities. Weights need not sum to one. The arrays must be
 nonempty and match in size, probabilities must be finite and in `[0,1]`, and

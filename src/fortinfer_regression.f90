@@ -1,17 +1,17 @@
-module fortprob_regression
+module fortinfer_regression
     use, intrinsic :: iso_fortran_env, only: dp => real64
     use, intrinsic :: ieee_arithmetic, only: ieee_is_finite
     use fortnum_status, only: fortnum_status_t, status_set, status_ok, &
         FORTNUM_DOMAIN_ERROR, FORTNUM_OK
     use fortnum_cholesky, only: cholesky_factorization_t
-    use fortprob_gaussian, only: gaussian_condition, validate_covariance, &
+    use fortinfer_gaussian, only: gaussian_condition, validate_covariance, &
         linear_propagate
     implicit none
     private
     public :: bayesian_linear_fit, bayesian_linear_predict, &
         bayesian_linear_fit_diagonal, bayesian_linear_predict_diagonal
     interface
-        pure subroutine fortprob_logpdf_leaf(n, logdet, quadratic, density)
+        pure subroutine fortinfer_logpdf_leaf(n, logdet, quadratic, density)
             import dp
             real(dp), intent(in) :: n, logdet, quadratic
             real(dp), intent(out) :: density
@@ -123,7 +123,7 @@ contains
             prior_work = matmul(prior_precision, delta)
             quadratic = sum(residual*(residual/noise_variance)) &
                 + dot_product(delta, prior_work)
-            call fortprob_logpdf_leaf(real(n, dp), sum(log(noise_variance)) &
+            call fortinfer_logpdf_leaf(real(n, dp), sum(log(noise_variance)) &
                 + prior_logdet + precision_logdet, quadratic, log_evidence)
             if (.not. ieee_is_finite(log_evidence)) then
                 call status_set(status, FORTNUM_DOMAIN_ERROR, 'regression evidence overflow')
@@ -222,4 +222,4 @@ contains
             end if
         end if
     end subroutine
-end module fortprob_regression
+end module fortinfer_regression

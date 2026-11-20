@@ -3,7 +3,7 @@
 ! Generator revision: fortsym b9ea95c5a0475b016b1e149875a9bec9d8562533
 ! Regenerate with: gen/regenerate.sh
 
-pure subroutine fortprob_interval_leaf(mean, variance, z, lower, upper, &
+pure subroutine fortinfer_interval_leaf(mean, variance, z, lower, upper, &
     dsigma_dvariance)
     use, intrinsic :: iso_fortran_env, only: real64
     implicit none
@@ -20,5 +20,5 @@ pure subroutine fortprob_interval_leaf(mean, variance, z, lower, upper, &
     lower = t8
     upper = t10
     dsigma_dvariance = t14
-end subroutine fortprob_interval_leaf
+end subroutine fortinfer_interval_leaf
 

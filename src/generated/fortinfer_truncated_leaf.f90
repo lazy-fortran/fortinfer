@@ -3,7 +3,7 @@
 ! Generator revision: fortsym b9ea95c5a0475b016b1e149875a9bec9d8562533
 ! Regenerate with: gen/regenerate.sh
 
-pure subroutine fortprob_truncated_leaf(a, ratio, shift, variance_factor)
+pure subroutine fortinfer_truncated_leaf(a, ratio, shift, variance_factor)
     use, intrinsic :: iso_fortran_env, only: real64
     implicit none
     real(real64), intent(in) :: a, ratio
@@ -15,5 +15,5 @@ pure subroutine fortprob_truncated_leaf(a, ratio, shift, variance_factor)
         1.0000000000000000E+000_real64)
     shift = ratio
     variance_factor = t9
-end subroutine fortprob_truncated_leaf
+end subroutine fortinfer_truncated_leaf
 

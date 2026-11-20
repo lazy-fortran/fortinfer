@@ -3,10 +3,10 @@ module gaussian_tests
     use, intrinsic :: ieee_arithmetic, only: ieee_value, ieee_quiet_nan
     use testdrive, only: new_unittest, unittest_type, error_type, check
     use fortnum_status, only: fortnum_status_t, status_ok
-    use fortprob_gaussian, only: gaussian_condition, gaussian_condition_jvp, &
+    use fortinfer_gaussian, only: gaussian_condition, gaussian_condition_jvp, &
         gaussian_logpdf, linear_propagate, gaussian_intervals, validate_covariance, &
         gaussian_conditioner_t
-    use fortprob_regression, only: bayesian_linear_fit, bayesian_linear_predict, &
+    use fortinfer_regression, only: bayesian_linear_fit, bayesian_linear_predict, &
         bayesian_linear_fit_diagonal, bayesian_linear_predict_diagonal
     implicit none
 contains
@@ -233,7 +233,7 @@ program test_gaussian
     type(testsuite_type) :: suite
     integer :: stat
     stat = 0
-    suite = new_testsuite('fortprob', collect)
+    suite = new_testsuite('fortinfer', collect)
     call run_testsuite(suite%collect, error_unit, stat)
     if (stat /= 0) error stop 1
 end program

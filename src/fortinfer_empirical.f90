@@ -1,4 +1,4 @@
-module fortprob_empirical
+module fortinfer_empirical
     use, intrinsic :: iso_fortran_env, only: dp => real64, int64
     use, intrinsic :: ieee_arithmetic, only: ieee_is_finite, ieee_value, &
         ieee_quiet_nan, ieee_positive_inf
@@ -10,12 +10,12 @@ module fortprob_empirical
     public :: empirical_calibration_t
 
     interface
-        pure subroutine fortprob_empirical_tail_leaf(n, count_ge, probability)
+        pure subroutine fortinfer_empirical_tail_leaf(n, count_ge, probability)
             import dp
             real(dp), intent(in) :: n, count_ge
             real(dp), intent(out) :: probability
         end subroutine
-        pure subroutine fortprob_empirical_rank_leaf(n, alpha, location)
+        pure subroutine fortinfer_empirical_rank_leaf(n, alpha, location)
             import dp
             real(dp), intent(in) :: n, alpha
             real(dp), intent(out) :: location
@@ -86,7 +86,7 @@ contains
                 hi = middle - 1_int64
             end if
         end do
-        call fortprob_empirical_tail_leaf(real(n, dp), &
+        call fortinfer_empirical_tail_leaf(real(n, dp), &
             real(int(n, int64) - hi, dp), probability)
         call status_set(status, FORTNUM_OK, '')
     end function
@@ -105,7 +105,7 @@ contains
         if (n == 0) return
         if (.not. ieee_is_finite(alpha)) return
         if (alpha <= 0.0_dp .or. alpha >= 1.0_dp) return
-        call fortprob_empirical_rank_leaf(real(n, dp), alpha, location)
+        call fortinfer_empirical_rank_leaf(real(n, dp), alpha, location)
         if (location > real(n, dp)) then
             threshold = ieee_value(0.0_dp, ieee_positive_inf)
         else
@@ -114,4 +114,4 @@ contains
         end if
         call status_set(status, FORTNUM_OK, '')
     end function
-end module fortprob_empirical
+end module fortinfer_empirical

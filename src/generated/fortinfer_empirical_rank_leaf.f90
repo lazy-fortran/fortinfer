@@ -3,7 +3,7 @@
 ! Generator revision: fortsym b9ea95c5a0475b016b1e149875a9bec9d8562533
 ! Regenerate with: gen/regenerate.sh
 
-pure subroutine fortprob_empirical_rank_leaf(n, alpha, location)
+pure subroutine fortinfer_empirical_rank_leaf(n, alpha, location)
     use, intrinsic :: iso_fortran_env, only: real64
     implicit none
     real(real64), intent(in) :: n, alpha
@@ -14,5 +14,5 @@ pure subroutine fortprob_empirical_rank_leaf(n, alpha, location)
     t7 = ((alpha * (-1.0000000000000000E+000_real64)) + 1.0000000000000000E+000_real64)
     t8 = (t3 * t7)
     location = t8
-end subroutine fortprob_empirical_rank_leaf
+end subroutine fortinfer_empirical_rank_leaf
 

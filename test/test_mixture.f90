@@ -4,7 +4,7 @@ module mixture_tests
         ieee_positive_inf
     use testdrive, only: new_unittest, unittest_type, error_type, check
     use fortnum_status, only: fortnum_status_t, status_ok, FORTNUM_DOMAIN_ERROR
-    use fortprob_mixture, only: probability_mean
+    use fortinfer_mixture, only: probability_mean
     implicit none
 contains
     subroutine collect(tests)

@@ -1,4 +1,4 @@
-module fortprob_truncated
+module fortinfer_truncated
     use, intrinsic :: iso_fortran_env, only: dp => real64
     use, intrinsic :: ieee_arithmetic, only: ieee_is_finite, ieee_value, &
         ieee_quiet_nan, ieee_negative_inf
@@ -8,12 +8,12 @@ module fortprob_truncated
     private
     public :: normal_lower_truncated_moments
     interface
-        pure subroutine fortprob_mills_step_leaf(a, denominator, derivative, k, nd, nv)
+        pure subroutine fortinfer_mills_step_leaf(a, denominator, derivative, k, nd, nv)
             import dp
             real(dp), intent(in) :: a, denominator, derivative, k
             real(dp), intent(out) :: nd, nv
         end subroutine
-        pure subroutine fortprob_truncated_leaf(a, ratio, shift, variance_factor)
+        pure subroutine fortinfer_truncated_leaf(a, ratio, shift, variance_factor)
             import dp
             real(dp), intent(in) :: a, ratio
             real(dp), intent(out) :: shift, variance_factor
@@ -59,7 +59,7 @@ contains
             denominator = a
             derivative = 1.0_dp
             do k = 128, 2, -1
-                call fortprob_mills_step_leaf(a, denominator, derivative, &
+                call fortinfer_mills_step_leaf(a, denominator, derivative, &
                     real(k, dp), nd, nv)
                 denominator = nd
                 derivative = nv
@@ -72,7 +72,7 @@ contains
         else
             log_mass = log(0.5_dp*erfc(a/sqrt(2.0_dp)))
             ratio = exp(-0.5_dp*a*a - log_sqrt_two_pi - log_mass)
-            call fortprob_truncated_leaf(a, ratio, shift, factor)
+            call fortinfer_truncated_leaf(a, ratio, shift, factor)
             mean = mu + sigma*shift
         end if
         truncated_variance = variance*factor
