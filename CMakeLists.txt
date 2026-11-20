@@ -43,7 +43,7 @@ if(FORTINFER_BUILD_TESTING)
     FetchContent_Declare(test-drive
         GIT_REPOSITORY https://github.com/fortran-lang/test-drive.git
         GIT_TAG 791484a79a24cbc00be6f74e53c6e030cb75efe2)
-    set(TEST_DRIVE_BUILD_TESTING OFF CACHE BOOL "")
+    set(TESTDRIVE_BUILD_TESTING OFF)
     FetchContent_MakeAvailable(test-drive)
     foreach(name affine_filter empirical gaussian laplace mixture nuts psis truncated)
         add_executable(test_${name} test/test_${name}.f90)
